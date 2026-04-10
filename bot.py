@@ -166,12 +166,16 @@ async def cedex(interaction: discord.Interaction, group_count: int) -> None:
     await interaction.response.send_message(embed=embed)
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """Entrypoint for launching the Discord bot process."""
     token = os.getenv("TOKEN")
     if not token:
-        # Exit gracefully so container/process managers do not endlessly restart
-        # due to an uncaught exception.
+        # Do not raise an exception; provide a clear action message and exit cleanly.
         print("[ERROR] TOKEN environment variable is not set. Set TOKEN before running the bot.")
-        raise SystemExit(0)
+        return
 
     bot.run(token)
+
+
+if __name__ == "__main__":
+    main()
